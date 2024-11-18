@@ -4,9 +4,10 @@ from django.conf import settings
 
 def get_food_data(query):
     api_key = settings.FDC_API_KEY  # Certifique-se de que sua chave está no settings.py
-    url = "https://api.nal.usda.gov/fdc/v1/foods/list"  # A URL que funciona no cURL
+    url = "https://api.nal.usda.gov/fdc/v1/foods/search"  # A URL que funciona no cURL
 
     params = {
+        "query": query,
         "dataType": "Foundation,SR Legacy",  # Tipo de dados, igual ao comando curl
         "pageSize": 25,  # Número de itens por página
         "pageNumber": 2,  # Página dos resultados
