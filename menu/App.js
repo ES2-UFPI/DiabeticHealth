@@ -1,18 +1,69 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Modal } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 const CalculoMacronutrientes = () => {
   const [quantidade, setQuantidade] = useState("");
   const [alimento, setAlimento] = useState("");
   const [observacoes, setObservacoes] = useState("");
+  const [totalCarboidratos, setTotalCarboidratos] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [glicemiaMomento, setGlicemiaMomento] = useState("");
+  const [glicemiaMeta, setGlicemiaMeta] = useState("");
+  const [fatorSensibilidade, setFatorSensibilidade] = useState("");
+
+  const carboidratos = {
+    arroz: 28,
+    feijao: 14,
+    frango: 0,
+    batata: 17,
+  };
 
   const handleAdicionarAlimento = () => {
-    alert(`Alimento: ${alimento}\nQuantidade: ${quantidade}g`);
+    if (alimento && quantidade) {
+      const carbPor100g = carboidratos[alimento] || 0;
+      const carbTotal = (carbPor100g * parseFloat(quantidade)) / 100;
+      setTotalCarboidratos((prev) => prev + carbTotal);
+
+      alert(`Alimento: ${alimento}\nQuantidade: ${quantidade}g\nCarboidratos: ${carbTotal.toFixed(2)}g`);
+      setQuantidade("");
+      setAlimento("");
+    } else {
+      alert("Por favor, selecione um alimento e insira a quantidade.");
+    }
   };
 
   const handleFinalizar = () => {
-    alert(`Finalizando com observações: ${observacoes}`);
+    setModalVisible(true); // Abre o modal
+  };
+
+  const handleConfirmarInsulina = () => {
+    const glicemiaAtual = parseFloat(glicemiaMomento);
+    const meta = parseFloat(glicemiaMeta);
+    const sensibilidade = parseFloat(fatorSensibilidade);
+
+    if (isNaN(glicemiaAtual) || isNaN(meta) || isNaN(sensibilidade)) {
+      alert("Por favor, preencha corretamente os campos de glicemia e sensibilidade.");
+      return;
+    }
+
+    const insulinaCarboidratos = totalCarboidratos / 15;
+    const insulinaCorreção = (glicemiaAtual - meta) / sensibilidade;
+    const doseTotalInsulina = insulinaCarboidratos + insulinaCorreção;
+
+    alert(
+      `Total de carboidratos: ${totalCarboidratos.toFixed(2)}g\n` +
+        `Observações: ${observacoes}\n` +
+        `Dose de insulina recomendada: ${doseTotalInsulina.toFixed(2)} UI`
+    );
+
+    // Resetar estados após finalizar
+    setTotalCarboidratos(0);
+    setObservacoes("");
+    setGlicemiaMomento("");
+    setGlicemiaMeta("");
+    setFatorSensibilidade("");
+    setModalVisible(false); // Fecha o modal
   };
 
   return (
@@ -21,7 +72,6 @@ const CalculoMacronutrientes = () => {
       <Text style={styles.subtitle}>Adicione alimentos e sua quantidade</Text>
 
       <View style={styles.form}>
-        {/* Campo de seleção de alimento */}
         <Text style={styles.label}>Alimento:</Text>
         <View style={styles.pickerContainer}>
           <Picker
@@ -37,7 +87,6 @@ const CalculoMacronutrientes = () => {
           </Picker>
         </View>
 
-        {/* Campo de quantidade */}
         <Text style={styles.label}>Quantidade (g):</Text>
         <TextInput
           style={styles.input}
@@ -47,7 +96,6 @@ const CalculoMacronutrientes = () => {
           onChangeText={(text) => setQuantidade(text)}
         />
 
-        {/* Campo de observações */}
         <Text style={styles.label}>Observações:</Text>
         <TextInput
           style={[styles.input, styles.observacoes]}
@@ -58,7 +106,6 @@ const CalculoMacronutrientes = () => {
           numberOfLines={4}
         />
 
-        {/* Botões */}
         <TouchableOpacity style={styles.button} onPress={handleAdicionarAlimento}>
           <Text style={styles.buttonText}>Adicionar Alimento</Text>
         </TouchableOpacity>
@@ -66,7 +113,53 @@ const CalculoMacronutrientes = () => {
         <TouchableOpacity style={styles.button} onPress={handleFinalizar}>
           <Text style={styles.buttonText}>Finalizar</Text>
         </TouchableOpacity>
+
+        <Text style={styles.totalText}>
+          Total de Carboidratos: {totalCarboidratos.toFixed(2)}g
+        </Text>
       </View>
+
+      {/* Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Insira os dados de glicemia</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Glicemia do momento"
+              keyboardType="numeric"
+              value={glicemiaMomento}
+              onChangeText={(text) => setGlicemiaMomento(text)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Glicemia meta"
+              keyboardType="numeric"
+              value={glicemiaMeta}
+              onChangeText={(text) => setGlicemiaMeta(text)}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Fator de sensibilidade"
+              keyboardType="numeric"
+              value={fatorSensibilidade}
+              onChangeText={(text) => setFatorSensibilidade(text)}
+            />
+
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleConfirmarInsulina}
+            >
+              <Text style={styles.buttonText}>Confirmar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -91,19 +184,18 @@ const styles = StyleSheet.create({
   },
   form: {
     flex: 1,
-    justifyContent: "flex-start",
   },
   label: {
-    fontSize: 18, // Fonte aumentada
-    fontWeight: "bold", // Texto em negrito
-    marginBottom: 10, // Espaçamento entre o rótulo e o campo
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   pickerContainer: {
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 15,
     backgroundColor: "#f9f9f9",
-    marginBottom: 25, // Aumentado o espaçamento
+    marginBottom: 25,
   },
   picker: {
     padding: 10,
@@ -113,11 +205,11 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 15,
     padding: 10,
-    marginBottom: 25, // Aumentado o espaçamento
+    marginBottom: 25,
     backgroundColor: "#f9f9f9",
   },
   observacoes: {
-    height: 220, // Altura do campo de observações
+    height: 120,
     textAlignVertical: "top",
   },
   button: {
@@ -125,12 +217,36 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 15,
     alignItems: "center",
-    marginBottom: 15, // Espaçamento ajustado entre os botões
+    marginBottom: 15,
   },
   buttonText: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  totalText: {
+    marginTop: 20,
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    width: "90%",
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 15,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
   },
 });
 
