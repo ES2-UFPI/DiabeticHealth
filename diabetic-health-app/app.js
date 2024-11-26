@@ -1,3 +1,8 @@
+import { registerRootComponent } from 'expo';
+import App from './app/App';
+
+registerRootComponent(App);
+
 const { MongoClient } = require("mongodb");
 const uri = require("./atlas_uri");
 
