@@ -1,71 +1,45 @@
-import random
 from django.core.management.base import BaseCommand
 from alimentos.models import Alimento
-import requests
-from googletrans import Translator
-
-FDC_API_KEY = 'WAW1vgb0Va9gbIgA9whfWLoiIiobNnSsgZtMC0U8'  # Substitua pela sua chave de API
+import pandas as pd
 
 class Command(BaseCommand):
-    help = 'Popula o banco com dados da FoodData Central API'
+    help = "Popula o banco com dados de um arquivo Excel"
 
-    def handle(self, *args, **kwargs):
-        translator = Translator()
-        url = f"https://api.nal.usda.gov/fdc/v1/foods/list?api_key={FDC_API_KEY}"
-        response = requests.get(url)
-        response.raise_for_status()  # Verifica se a requisição foi bem-sucedida
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--file', type=str, required=True, help="Caminho para o arquivo .xlsx"
+        )
 
-        alimentos_data = response.json()  # Converte a resposta em JSON
+    def handle(self, *args, **options):
+        file_path = options['file']
 
-        for alimento in alimentos_data[:50]:  # Exemplo com os primeiros 50 alimentos
-            try:
-                # Filtrar por `dataType` para excluir entradas irrelevantes
-                if alimento.get('dataType') not in ['Survey (FNDDS)', 'SR Legacy']:
-                    self.stdout.write(f"Ignorando entrada irrelevante: {alimento.get('description')}")
-                    continue
+        try:
+            # Ler o arquivo Excel
+            df = pd.read_excel(file_path)
 
-                # Verificar se o item possui nutrientes
-                if not alimento.get('foodNutrients'):
-                    self.stdout.write(f"Ignorando entrada sem nutrientes: {alimento.get('description')}")
-                    continue
+            # Verificar se as colunas necessárias estão presentes
+            required_columns = ['alimento', 'medida usual', 'g ou ml', 'cho (g)', 'calorias (kcal)']
+            if not all(col in df.columns for col in required_columns):
+                self.stderr.write("Erro: O arquivo Excel não possui as colunas necessárias.")
+                return
 
-                # Pegue o nome e traduza
-                nome = alimento.get('description', 'Sem Nome')
-                nome_pt = translator.translate(nome, src='en', dest='pt').text
+            # Iterar sobre as linhas do DataFrame e salvar os dados no banco
+            for _, row in df.iterrows():
+                try:
+                    Alimento.objects.create(
+                        nome=row['alimento'],
+                        medida_usual=row['medida usual'],
+                        g_ou_ml=row['g ou ml'],
+                        carboidratos=row['cho (g)'],
+                        calorias=row['calorias (kcal)'],
+                    )
+                    self.stdout.write(f"Alimento adicionado: {row['alimento']}")
+                except Exception as e:
+                    self.stderr.write(f"Erro ao adicionar '{row['alimento']}': {e}")
 
-                # Extraia os nutrientes necessários, garantindo que existem
-                calorias = next(
-                    (nutriente['amount'] for nutriente in alimento.get('foodNutrients', [])
-                     if nutriente.get('name') == 'Energy' and nutriente.get('unitName') == 'KCAL'),
-                    0  # Valor padrão caso não encontre
-                )
-                carboidratos = next(
-                    (nutriente['amount'] for nutriente in alimento.get('foodNutrients', [])
-                     if nutriente.get('name') == 'Carbohydrate, by difference'),
-                    0
-                )
-                proteinas = next(
-                    (nutriente['amount'] for nutriente in alimento.get('foodNutrients', [])
-                     if nutriente.get('name') == 'Protein'),
-                    0
-                )
-                gorduras = next(
-                    (nutriente['amount'] for nutriente in alimento.get('foodNutrients', [])
-                     if nutriente.get('name') == 'Total lipid (fat)'),
-                    0
-                )
+            self.stdout.write("Banco de dados populado com sucesso!")
 
-                # Salve o alimento no banco de dados
-                Alimento.objects.create(
-                    nome=nome_pt,
-                    calorias=calorias,
-                    carboidratos=carboidratos,
-                    proteinas=proteinas,
-                    gorduras=gorduras,
-                    categoria=alimento.get('dataType', 'Sem Categoria'),
-                )
-                self.stdout.write(f"Alimento adicionado: {nome_pt}")
-            except Exception as e:
-                self.stderr.write(f"Erro ao processar o alimento '{alimento.get('description', 'Desconhecido')}': {e}")
-
-        self.stdout.write("Banco de dados populado com sucesso!")
+        except FileNotFoundError:
+            self.stderr.write(f"Erro: Arquivo '{file_path}' não encontrado.")
+        except Exception as e:
+            self.stderr.write(f"Erro inesperado: {e}")
