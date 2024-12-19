@@ -8,9 +8,9 @@ def get_food_data(query):
 
     params = {
         "query": query,
-        "dataType": "Foundation,SR Legacy",  # Tipo de dados, igual ao comando curl
+        # "dataType": "Foundation,SR Legacy",  # Tipo de dados, igual ao comando curl
         "pageSize": 25,  # Número de itens por página
-        "pageNumber": 2,  # Página dos resultados
+        "pageNumber": 1,  # Página dos resultados
         "api_key": api_key,  # A chave de API que você está utilizando
     }
 
