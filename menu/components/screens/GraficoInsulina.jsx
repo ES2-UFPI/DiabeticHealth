@@ -3,19 +3,11 @@ import { View, Text, Button, Modal, TextInput, StyleSheet, TouchableOpacity } fr
 import { BarChart } from 'react-native-gifted-charts';
 
 const GraficoInsulina = () => {
-  const [data, setData] = useState([
-    { value: 20, label: '1 Nov' },
-    { value: 30, label: '5 Nov' },
-    { value: 50, label: '10 Nov' },
-    { value: 40, label: '15 Nov' },
-    { value: 30, label: '20 Nov' },
-  ]);
-
+  const [data, setData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [newValue, setNewValue] = useState('');
   const [newDate, setNewDate] = useState('');
 
-  // Adiciona um novo valor ao gráfico
   const addData = () => {
     if (!newValue || !newDate) return;
     setData([...data, { value: parseInt(newValue), label: newDate }]);
