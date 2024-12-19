@@ -1,0 +1,42 @@
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 301 0
+code 400, message Bad request version ('yzÀ\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+code 400, message Bad request version ('ÏQ2\x06\x117\x98Ò\x052\x81ÜÏþJÕ³\x16L¥èDy!ýÍ=[d;\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+code 400, message Bad request version ('\x96#¥æ\x86ËÖ\x83j\x9cÛ±ÓÊ\x1bZ£%\x84ç=IÉ\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+code 400, message Bad request version ('\x87Sä\x16\x04\x9d®\xadËZ7\x1b_»8ªðÅC\x86óÑo\x1a¯Åq\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+code 400, message Bad request version ('.!i\x9e.\x87\x00.\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+code 400, message Bad request version ('º\x14\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+code 400, message Bad request version ('«¸¾X\x96§°ëHk»lÉ6e$¯ãÔº¸a\x87\x87¢]\x84Q\x81GÎ\x95\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+code 400, message Bad request version ('V£¤ü7ÔÀ\x96J¦¦¨')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+code 400, message Bad request version ('r5\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+code 400, message Bad request version ('<\x04À\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 301 0
+code 400, message Bad request version ('K¼í½\x07ÔäC\x8a\x17fÖRÀRÌè·Ó\x03¡\x87ÐÞ¸\x9dÉ\x1bð\x15çØ\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+"GET / HTTP/1.1" 301 0
+"GET / HTTP/1.1" 301 0
+code 400, message Bad request version ('ªª\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06S**\x00\x00\x00')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+code 400, message Bad request version ('\x82û\x82é\x82Á$Á\x7fÜ\x84ã!6Ø\x9b¥q7ÖàÅèCc\x00')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+/home/legui/area_de_trabalho/ES_2_desenvolvimento/DiabeticHealth/myproject/myproject/settings.py changed, reloading.
+Watching for file changes with StatReloader
+code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x02z\x01\x00\x02v\x03\x03Êz\x9a©¨|.dø')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+/home/legui/area_de_trabalho/ES_2_desenvolvimento/DiabeticHealth/myproject/myproject/settings.py changed, reloading.
+Watching for file changes with StatReloader
+code 400, message Bad request version ('P\x92\x90Ã\x89\x94æ\x9eëéãe\x9b\x1b|Ã@LÔo\x96\x8bMTÃU"Aµù\x05O\x00"\x13\x01\x13\x03\x13\x02À+À/Ì©Ì¨À,À0À')
+You're accessing the development server over HTTPS, but it only supports HTTP.
+/home/legui/area_de_trabalho/ES_2_desenvolvimento/DiabeticHealth/myproject/myproject/settings.py changed, reloading.
