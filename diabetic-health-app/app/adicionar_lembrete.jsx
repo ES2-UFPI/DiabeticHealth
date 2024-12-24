@@ -1,14 +1,43 @@
-import React, { useState } from 'react';
-import { ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  ScrollView,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Notifications from 'expo-notifications';
 
-export default function AddMedicationReminderScreen({ navigation }) {
+// Se você está usando a pasta "app" do Expo Router,
+// por exemplo, o arquivo está em: app/adicionar_lembrete/index.js
+export default function AddMedicationReminderScreen() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [interval, setInterval] = useState('');
+  const [remindersList, setRemindersList] = useState([]);
+
+  // Carrega os lembretes ao montar o componente
+  useEffect(() => {
+    loadReminders();
+  }, []);
+
+  const loadReminders = async () => {
+    try {
+      const storedReminders = await AsyncStorage.getItem('medicationReminders');
+      if (storedReminders) {
+        setRemindersList(JSON.parse(storedReminders));
+      } else {
+        setRemindersList([]);
+      }
+    } catch (error) {
+      console.log('Erro ao carregar lembretes:', error);
+    }
+  };
 
   const scheduleNotification = async (reminder) => {
     const trigger = new Date(`${reminder.date}T${reminder.time}:00`);
@@ -20,6 +49,10 @@ export default function AddMedicationReminderScreen({ navigation }) {
       trigger: {
         date: trigger,
         repeats: true,
+        // Para repetir a cada X horas, normalmente é preciso usar `seconds` no campo `repeatInterval`
+        // mas essa opção não é suportada em todas as plataformas.
+        // Se quiser um repeat "simples", use { seconds: 3600 * X } (sem `repeats: true`).
+        // Abaixo está ilustrativo. Em iOS, `repeatInterval` não é totalmente suportado.
         repeatInterval: parseInt(reminder.interval) * 60 * 60,
       },
     });
@@ -44,14 +77,33 @@ export default function AddMedicationReminderScreen({ navigation }) {
 
     const newReminder = { title, description, date, time, interval };
     try {
+      // Lê o array do AsyncStorage
       const storedReminders = await AsyncStorage.getItem('medicationReminders');
       const reminders = storedReminders ? JSON.parse(storedReminders) : [];
+
+      // Adiciona o novo lembrete no array
       reminders.push(newReminder);
+
+      // Salva o array atualizado
       await AsyncStorage.setItem('medicationReminders', JSON.stringify(reminders));
+
+      // Agenda a notificação
       await scheduleNotification(newReminder);
+
+      // Atualiza a lista local
+      setRemindersList(reminders);
+
       Alert.alert('Sucesso', 'Lembrete de medicamento salvo com sucesso!');
+
+      // Limpa os campos
+      setTitle('');
+      setDescription('');
+      setDate('');
+      setTime('');
+      setInterval('');
     } catch (error) {
       Alert.alert('Erro', 'Falha ao salvar o lembrete.');
+      console.log(error);
     }
   };
 
@@ -80,7 +132,7 @@ export default function AddMedicationReminderScreen({ navigation }) {
       <Text style={styles.label}>Data Inicial</Text>
       <TextInput
         style={styles.input}
-        placeholder="Digite a data (ex: 25/12/2024)"
+        placeholder="Digite a data (ex: 2024-12-25)"
         value={date}
         onChangeText={setDate}
       />
@@ -102,19 +154,33 @@ export default function AddMedicationReminderScreen({ navigation }) {
         onChangeText={setInterval}
       />
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={saveReminder}
-      >
+      <TouchableOpacity style={styles.button} onPress={saveReminder}>
         <Text style={styles.buttonText}>Salvar Lembrete</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.testButton}
-        onPress={testNotification}
-      >
+      <TouchableOpacity style={styles.testButton} onPress={testNotification}>
         <Text style={styles.buttonText}>Testar Notificação</Text>
       </TouchableOpacity>
+
+      <Text style={styles.listTitle}>Lembretes Criados:</Text>
+      {remindersList.length === 0 ? (
+        <Text style={styles.emptyList}>Nenhum lembrete criado ainda.</Text>
+      ) : (
+        remindersList.map((reminder, index) => (
+          <View key={index} style={styles.reminderItem}>
+            <Text style={styles.reminderTitle}>{reminder.title}</Text>
+            {reminder.description ? (
+              <Text style={styles.reminderDescription}>{reminder.description}</Text>
+            ) : null}
+            <Text style={styles.reminderInfo}>
+              {reminder.date} às {reminder.time}
+            </Text>
+            <Text style={styles.reminderInfo}>
+              Intervalo: {reminder.interval} hora(s)
+            </Text>
+          </View>
+        ))
+      )}
     </ScrollView>
   );
 }
@@ -124,6 +190,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     backgroundColor: '#ffffff',
     padding: 20,
+    paddingBottom: 40,
   },
   title: {
     fontSize: 22,
@@ -172,5 +239,38 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  listTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 15,
+    marginBottom: 10,
+  },
+  emptyList: {
+    fontSize: 16,
+    color: '#999',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  reminderItem: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 10,
+    backgroundColor: '#f3f3f3',
+  },
+  reminderTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  reminderDescription: {
+    fontStyle: 'italic',
+    marginBottom: 5,
+  },
+  reminderInfo: {
+    fontSize: 14,
+    marginBottom: 3,
   },
 });
