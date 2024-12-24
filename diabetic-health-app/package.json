@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
+    "@react-native-async-storage/async-storage": "^2.1.0",
     "@react-native-picker/picker": "2.9.0",
     "@react-navigation/bottom-tabs": "^7.0.0",
     "expo": "~52.0.7",
@@ -24,6 +25,7 @@
     "expo-font": "~13.0.1",
     "expo-haptics": "~14.0.0",
     "expo-linking": "~7.0.2",
+    "expo-notifications": "^0.29.11",
     "expo-router": "~4.0.6",
     "expo-splash-screen": "~0.29.11",
     "expo-status-bar": "~2.0.0",

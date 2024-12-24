@@ -23,7 +23,7 @@ import { useRouter } from 'expo-router';
       <View style={styles.buttonGroup}>
         {renderButton("Acessar Histórico", handlePress)}
         {renderButton("Cálculo de macronutrientes",() => router.push('/calculo_macronutrientes'))}
-        {renderButton("Adicionar Lembrete", handlePress)}
+        {renderButton("Adicionar Lembrete", () => router.push('/adicionar_lembrete'))}
         {renderButton("Adicionar Medicamento", handlePress)}
         {renderButton("Monitorar Pressão Arterial", handlePress)}
         {renderButton("Registrar Glicemia", handlePress)}
