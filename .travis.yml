@@ -1,52 +1,16 @@
+os: windowns
 language: android
-sudo: required
-dist: trusty
-
-# Configura o cache para acelerar builds
-cache:
-  directories:
-    - $HOME/.npm
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
-# Configuração de ambientes para Android e Node.js
+jdk: oraclejdk8
 android:
   components:
-    - tools
-    - build-tools-30.0.2
-    - android-30
-  licenses:
-    - 'android-sdk-license-.+'
-
-node_js:
-  - "14" # Substitua pela versão Node.js que você está usando
-
-# Instalação do Yarn
+    - build-tools-23.0.1
+    - android-23
 before_install:
-  - npm install -g yarn
-
-# Instalação de dependências
+  - yes | sdkmanager "platforms;android-23"
+  - yes | sdkmanager "build-tools;23.0.1"
+  - nvm install && nvm use
+  - npm install -g "npm@$(jq -r '.engines.npm' package.json)"
 install:
-  - yarn install
-
-# Script de build
+  - npm ci
 script:
-  - cd android && ./gradlew assembleDebug
-
-# Configuração para builds iOS (se necessário)
-jobs:
-  include:
-    - os: osx
-      osx_image: xcode12.5
-      language: node_js
-      node_js:
-        - "14" # Certifique-se de usar a versão correta
-      cache:
-        directories:
-          - $HOME/.npm
-      before_install:
-        - brew install yarn
-      install:
-        - yarn install
-      script:
-        - cd ios && xcodebuild -workspace MyApp.xcworkspace -scheme MyApp -sdk iphonesimulator -configuration Debug build
+  - "./android/gradlew assembleRelease -p android/"
