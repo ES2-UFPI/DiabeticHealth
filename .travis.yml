@@ -1,40 +1,9 @@
-os: windows
-language: android
-jdk: oraclejdk8
-
-android:
-  components:
-    - build-tools-23.0.1
-    - android-23
-
-before_install:
-  - yes | sdkmanager "platforms;android-23"
-  - yes | sdkmanager "build-tools;23.0.1"
-  - nvm install && nvm use
-  - npm install -g "npm@$(jq -r '.engines.npm' package.json)'
+language: python
+python:
+  - "3.12"
 
 install:
-  - npm ci
+  - pip install -r requirements.txt
 
 script:
-  - "./android/gradlew assembleRelease -p android/"
-
-jobs:
-  include:
-    - stage: test
-      language: node_js
-      node_js:
-        - "14"
-      install:
-        - npm ci
-      script:
-        - npm test
-
-    - stage: deploy
-      language: python
-      python:
-        - "3.8"
-      install:
-        - pip install -r requirements.txt
-      script:
-        - python manage.py test
+  - python manage.py test
