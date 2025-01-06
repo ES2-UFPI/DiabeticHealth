@@ -17,7 +17,7 @@
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
     "@react-native-async-storage/async-storage": "1.23.1",
-    "@react-native-picker/picker": "2.9.0",
+    "@react-native-picker/picker": "^2.9.0",
     "@react-navigation/bottom-tabs": "^7.0.0",
     "expo": "~52.0.7",
     "expo-blur": "~14.0.1",
@@ -36,9 +36,9 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-native": "0.76.5",
+    "react-native-reanimated": "~3.16.1",
     "react-native-web": "~0.19.13",
-    "react-native-webview": "13.12.5",
-    "react-native-reanimated": "~3.16.1"
+    "react-native-webview": "13.12.5"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
