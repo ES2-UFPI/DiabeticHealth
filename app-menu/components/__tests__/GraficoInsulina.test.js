@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react-native';
-import GraficoInsulina from '../screens/GraficoInsulina'; // Ajuste o caminho conforme necessário
+import GraficoInsulina from '../../components/screens/GraficoInsulina'; // Ajuste o caminho conforme necessário
 
 describe('GraficoInsulina', () => {
   it('deve renderizar corretamente', () => {

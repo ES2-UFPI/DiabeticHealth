@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react-native';
-import MainMenu from '../components/screens/MainMenu'; // Ajuste o caminho conforme necessário
+import MainMenu from '../../components/screens/MainMenu'; // Ajuste o caminho conforme necessário
 import { NavigationContainer } from '@react-navigation/native'; // Importar o container de navegação
 
 // Mock da navegação
