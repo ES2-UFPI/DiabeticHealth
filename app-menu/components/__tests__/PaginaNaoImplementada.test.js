@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react-native';
-import PaginaNaoImplementada from '../components/screens/PaginaNaoImplementada'; // Ajuste o caminho conforme necessário
+import PaginaNaoImplementada from '../../components/screens/PaginaNaoImplementada'; // Ajuste o caminho conforme necessário
 
 describe('PaginaNaoImplementada', () => {
   it('deve renderizar as mensagens corretamente', () => {
