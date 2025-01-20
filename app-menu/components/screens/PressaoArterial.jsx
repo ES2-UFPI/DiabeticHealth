@@ -3,25 +3,17 @@ import { View, Text, TextInput, TouchableOpacity, Modal, ScrollView, SafeAreaVie
 import { Picker } from "@react-native-picker/picker";
 import { globalStyles } from '../../constants/styles';
 
-interface Registro {
-  sistolica: string;
-  diastolica: string;
-  pulso: string;
-  momento: string;
-  data: Date;
-}
-
 const RegistroPressaoArterial = () => {
   const [sistolica, setSistolica] = useState("");
   const [diastolica, setDiastolica] = useState("");
   const [pulso, setPulso] = useState("");
   const [momento, setMomento] = useState("");
-  const [registros, setRegistros] = useState<Registro[]>([]);
+  const [registros, setRegistros] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleAdicionarRegistro = () => {
     if (sistolica && diastolica && pulso && momento) {
-      const novoRegistro: Registro = {
+      const novoRegistro = {
         sistolica,
         diastolica,
         pulso,
