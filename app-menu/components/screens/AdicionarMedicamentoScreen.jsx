@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function AdicionarMedicamentoScreen() {
+const AdicionarMedicamentoScreen = () => {
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
   const [intervalo, setIntervalo] = useState('');
@@ -161,6 +161,8 @@ export default function AdicionarMedicamentoScreen() {
     </ScrollView>
   );
 }
+
+export default AdicionarMedicamentoScreen;
 
 const styles = StyleSheet.create({
   container: {

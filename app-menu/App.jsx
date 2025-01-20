@@ -23,8 +23,8 @@ const App = () => {
         <Stack.Screen name="Gráfico Insulina" component={GraficoInsulina} />
         <Stack.Screen name="Não Implementada" component={PaginaNaoImplementada} />
         <Stack.Screen name="Adicionar Medicamento" component={AdicionarMedicamentoScreen} />
-        <Stack.Screen name="Adicionar Lembrete" omponent={AddReminderScreen} />
-        <Stack.Screen name="Login" omponent={LoginScreen} />
+        <Stack.Screen name="Adicionar Lembrete" component={AddReminderScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
