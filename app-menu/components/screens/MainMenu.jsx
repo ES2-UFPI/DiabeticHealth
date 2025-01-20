@@ -26,7 +26,7 @@ export default function MainMenu() {
         {renderButton("Cálculo de macronutrientes", "Cálculo de Macronutrientes")}
         {renderButton("Adicionar Lembrete", "Não Implementada")}
         {renderButton("Adicionar Medicamento", "Não Implementada")}
-        {renderButton("Monitorar Pressão Arterial", "Não Implementada")}
+        {renderButton("Monitorar Pressão Arterial", "Monitorar Pressão")}
         {renderButton("Registrar Glicemia", "Não Implementada")}
       </View>
     </SafeAreaView>
