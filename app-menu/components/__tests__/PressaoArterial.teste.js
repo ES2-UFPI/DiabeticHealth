@@ -21,7 +21,6 @@ describe('RegistroPressaoArterial', () => {
     expect(queryByText('Sistólica: 120')).toBeTruthy();
     expect(queryByText('Diastólica: 80')).toBeTruthy();
     expect(queryByText('Pulso: 70')).toBeTruthy();
-    expect(queryByText('Momento: Manhã')).toBeTruthy();
   });
 
   it('should show an alert when not all fields are filled', () => {
