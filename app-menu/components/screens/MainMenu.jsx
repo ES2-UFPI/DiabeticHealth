@@ -24,10 +24,10 @@ export default function MainMenu() {
       <View style={globalStyles.buttonGroup}>
         {renderButton("Histórico de Insulina", "Gráfico Insulina")}
         {renderButton("Cálculo de macronutrientes", "Cálculo de Macronutrientes")}
-        {renderButton("Adicionar Lembrete", "Não Implementada")}
-        {renderButton("Adicionar Medicamento", "Não Implementada")}
+        {renderButton("Adicionar Lembrete", "Adicionar Lembrete")}
+        {renderButton("Adicionar Medicamento", "Adicionar Medicamento")}
         {renderButton("Monitorar Pressão Arterial", "Monitorar Pressão")}
-        {renderButton("Registrar Glicemia", "Não Implementada")}
+        {renderButton("Registrar Glicemia", "Registrar Glicemia")}
       </View>
     </SafeAreaView>
   );
