@@ -31,7 +31,9 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="adicionar_medicamento" options={{ headerShown: false }} />
         <Stack.Screen name="calculo_macronutrientes" options={{ headerShown: false }} />
+        <Stack.Screen name="adicionar_lembrete" options={{ headerShown: false }} />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

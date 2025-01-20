@@ -8,7 +8,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest --watchAll",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "expo lint"
   },
   "jest": {
@@ -53,6 +54,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@babel/preset-typescript": "^7.26.0",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react": "^16.1.0",
     "@testing-library/react-native": "^12.9.0",
