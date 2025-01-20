@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import RegistroPressaoArterial from '../app-menu/components/screens/PressaoArterial';
+import RegistroPressaoArterial from '../../components/screens/PressaoArterial';
 
 describe('RegistroPressaoArterial', () => {
   it('should add a new record when all fields are filled and the button is pressed', () => {
