@@ -5,6 +5,7 @@ import MainMenu from './components/screens/MainMenu';
 import CalculoMacronutrientes from './components/screens/CalculoCarboidratos';
 import GraficoInsulina from './components/screens/GraficoInsulina';
 import PaginaNaoImplementada from './components/screens/PaginaNaoImplementada';
+import RegistroPressaoArterial from './components/screens/PressaoArterial';
 
 
 const Stack = createStackNavigator();
@@ -15,6 +16,7 @@ const App = () => {
       <Stack.Navigator initialRouteName="DiabeticHealth">
         <Stack.Screen name="DiabeticHealth" component={MainMenu} />
         <Stack.Screen name="Cálculo de Macronutrientes" component={CalculoMacronutrientes} />
+        <Stack.Screen name="Monitorar Pressão" component={RegistroPressaoArterial} />
         <Stack.Screen name="Gráfico Insulina" component={GraficoInsulina} />
         <Stack.Screen name="Não Implementada" component={PaginaNaoImplementada} />
       </Stack.Navigator>

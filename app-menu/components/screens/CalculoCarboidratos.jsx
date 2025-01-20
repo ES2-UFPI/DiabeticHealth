@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Modal } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Modal } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import { globalStyles } from '../../constants/styles';
 
 const CalculoMacronutrientes = () => {
   const [quantidade, setQuantidade] = useState("");
@@ -67,16 +68,16 @@ const CalculoMacronutrientes = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.subtitle}>Adicione alimentos e sua quantidade</Text>
+    <View style={globalStyles.container}>
+      <Text style={globalStyles.subtitle}>Adicione alimentos e sua quantidade</Text>
 
-      <View style={styles.form}>
-        <Text style={styles.label}>Alimento:</Text>
-        <View style={styles.pickerContainer}>
+      <View style={globalStyles.form}>
+        <Text style={globalStyles.label}>Alimento:</Text>
+        <View style={globalStyles.pickerContainer}>
           <Picker
             selectedValue={alimento}
             onValueChange={(itemValue) => setAlimento(itemValue)}
-            style={styles.picker}
+            style={globalStyles.picker}
             testID="picker"
           >
             <Picker.Item label="Selecione um alimento" value="" />
@@ -87,18 +88,18 @@ const CalculoMacronutrientes = () => {
           </Picker>
         </View>
 
-        <Text style={styles.label}>Quantidade (g):</Text>
+        <Text style={globalStyles.label}>Quantidade (g):</Text>
         <TextInput
-          style={styles.input}
+          style={globalStyles.input}
           placeholder="Digite a quantidade"
           keyboardType="numeric"
           value={quantidade}
           onChangeText={(text) => setQuantidade(text)}
         />
 
-        <Text style={styles.label}>Observações:</Text>
+        <Text style={globalStyles.label}>Observações:</Text>
         <TextInput
-          style={[styles.input, styles.observacoes]}
+          style={[globalStyles.input, globalStyles.observacoes]}
           placeholder="Adicione suas observações"
           value={observacoes}
           onChangeText={(text) => setObservacoes(text)}
@@ -106,15 +107,15 @@ const CalculoMacronutrientes = () => {
           numberOfLines={4}
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleAdicionarAlimento}>
-          <Text style={styles.buttonText}>Adicionar Alimento</Text>
+        <TouchableOpacity style={globalStyles.buttonContainer} onPress={handleAdicionarAlimento}>
+          <Text style={globalStyles.buttonText}>Adicionar Alimento</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={handleFinalizar}>
-          <Text style={styles.buttonText}>Finalizar</Text>
+        <TouchableOpacity style={globalStyles.buttonContainer} onPress={handleFinalizar}>
+          <Text style={globalStyles.buttonText}>Finalizar</Text>
         </TouchableOpacity>
 
-        <Text style={styles.totalText}>
+        <Text style={globalStyles.totalText}>
           Total de Carboidratos: {totalCarboidratos.toFixed(2)}g
         </Text>
       </View>
@@ -126,25 +127,25 @@ const CalculoMacronutrientes = () => {
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Insira os dados de glicemia</Text>
+        <View style={globalStyles.modalContainer}>
+          <View style={globalStyles.modalContent}>
+            <Text style={globalStyles.modalTitle}>Insira os dados de glicemia</Text>
             <TextInput
-              style={styles.input}
+              style={globalStyles.input}
               placeholder="Glicemia do momento"
               keyboardType="numeric"
               value={glicemiaMomento}
               onChangeText={(text) => setGlicemiaMomento(text)}
             />
             <TextInput
-              style={styles.input}
+              style={globalStyles.input}
               placeholder="Glicemia meta"
               keyboardType="numeric"
               value={glicemiaMeta}
               onChangeText={(text) => setGlicemiaMeta(text)}
             />
             <TextInput
-              style={styles.input}
+              style={globalStyles.input}
               placeholder="Fator de sensibilidade"
               keyboardType="numeric"
               value={fatorSensibilidade}
@@ -152,10 +153,10 @@ const CalculoMacronutrientes = () => {
             />
 
             <TouchableOpacity
-              style={styles.button}
+              style={globalStyles.buttonContainer}
               onPress={handleConfirmarInsulina}
             >
-              <Text style={styles.buttonText}>Confirmar</Text>
+              <Text style={globalStyles.buttonText}>Confirmar</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -163,91 +164,5 @@ const CalculoMacronutrientes = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-    padding: 20,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 5,
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: "center",
-    color: "#666",
-    marginBottom: 20,
-  },
-  form: {
-    flex: 1,
-  },
-  label: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  pickerContainer: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 15,
-    backgroundColor: "#f9f9f9",
-    marginBottom: 25,
-  },
-  picker: {
-    padding: 10,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 15,
-    padding: 10,
-    marginBottom: 25,
-    backgroundColor: "#f9f9f9",
-  },
-  observacoes: {
-    height: 120,
-    textAlignVertical: "top",
-  },
-  button: {
-    backgroundColor: "#000",
-    paddingVertical: 15,
-    borderRadius: 15,
-    alignItems: "center",
-    marginBottom: 15,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  totalText: {
-    marginTop: 20,
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContent: {
-    width: "90%",
-    backgroundColor: "#fff",
-    padding: 20,
-    borderRadius: 15,
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
-  },
-});
 
 export default CalculoMacronutrientes;

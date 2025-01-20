@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, Button, Modal, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Button, Modal, TextInput, TouchableOpacity } from 'react-native';
 import { BarChart } from 'react-native-gifted-charts';
+import { globalStyles } from '../../constants/styles';
 
 const GraficoInsulina = () => {
   const [data, setData] = useState([]);
@@ -17,9 +18,9 @@ const GraficoInsulina = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
       {/* Título */}
-      <Text style={styles.title}>Insulina no Último Mês</Text>
+      <Text style={globalStyles.title}>Insulina no Último Mês</Text>
 
       {/* Gráfico */}
       <BarChart
@@ -35,29 +36,29 @@ const GraficoInsulina = () => {
       />
 
       {/* Botão para abrir o modal */}
-      <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
-        <Text style={styles.addButtonText}>Adicionar Valor</Text>
+      <TouchableOpacity style={globalStyles.addButton} onPress={() => setModalVisible(true)}>
+        <Text style={globalStyles.addButtonText}>Adicionar Valor</Text>
       </TouchableOpacity>
 
       {/* Modal para adicionar valor */}
       <Modal visible={modalVisible} animationType="slide" transparent>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Adicionar Insulina</Text>
+        <View style={globalStyles.modalContainer}>
+          <View style={globalStyles.modalContent}>
+            <Text style={globalStyles.modalTitle}>Adicionar Insulina</Text>
             <TextInput
-              style={styles.input}
+              style={globalStyles.input}
               placeholder="Data (ex: 25 Nov)"
               value={newDate}
               onChangeText={setNewDate}
             />
             <TextInput
-              style={styles.input}
+              style={globalStyles.input}
               placeholder="Valor (ex: 45)"
               keyboardType="numeric"
               value={newValue}
               onChangeText={setNewValue}
             />
-            <View style={styles.modalButtons}>
+            <View style={globalStyles.modalButtons}>
               <Button title="Cancelar" onPress={() => setModalVisible(false)} />
               <Button title="Adicionar" onPress={addData} />
             </View>
@@ -67,59 +68,5 @@ const GraficoInsulina = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f9f9f9',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  addButton: {
-    marginTop: 20,
-    backgroundColor: '#177AD5',
-    padding: 10,
-    borderRadius: 8,
-  },
-  addButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    width: '80%',
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-    elevation: 5,
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
-  },
-  modalButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-});
 
 export default GraficoInsulina;
