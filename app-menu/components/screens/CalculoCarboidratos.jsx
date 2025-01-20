@@ -77,6 +77,7 @@ const CalculoMacronutrientes = () => {
             selectedValue={alimento}
             onValueChange={(itemValue) => setAlimento(itemValue)}
             style={styles.picker}
+            testID="picker"
           >
             <Picker.Item label="Selecione um alimento" value="" />
             <Picker.Item label="Arroz" value="arroz" />
