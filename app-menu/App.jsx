@@ -6,6 +6,9 @@ import CalculoMacronutrientes from './components/screens/CalculoCarboidratos';
 import GraficoInsulina from './components/screens/GraficoInsulina';
 import PaginaNaoImplementada from './components/screens/PaginaNaoImplementada';
 import RegistroPressaoArterial from './components/screens/PressaoArterial';
+import AddReminderScreen from './components/screens/AddReminderScreen';
+import AdicionarMedicamentoScreen from './components/screens/AdicionarMedicamentoScreen';
+import LoginScreen from './components/screens/LoginScreen';
 
 
 const Stack = createStackNavigator();
@@ -19,6 +22,9 @@ const App = () => {
         <Stack.Screen name="Monitorar Pressão" component={RegistroPressaoArterial} />
         <Stack.Screen name="Gráfico Insulina" component={GraficoInsulina} />
         <Stack.Screen name="Não Implementada" component={PaginaNaoImplementada} />
+        <Stack.Screen name="Adicionar Medicamento" component={AdicionarMedicamentoScreen} />
+        <Stack.Screen name="Adicionar Lembrete" component={AddReminderScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
