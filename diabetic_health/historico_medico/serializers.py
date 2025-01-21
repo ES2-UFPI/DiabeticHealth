@@ -1,10 +1,10 @@
 from rest_framework_mongoengine.serializers import DocumentSerializer
-from .models import  Glicemia, Pressao
+from .models import  Insulina, Pressao
 
 
-class GlicemiaSerializer(DocumentSerializer):
+class InsulinaSerializer(DocumentSerializer):
     class Meta:
-        model = Glicemia
+        model = Insulina
         fields = '__all__'
 
 class PressaoSerializer(DocumentSerializer):
