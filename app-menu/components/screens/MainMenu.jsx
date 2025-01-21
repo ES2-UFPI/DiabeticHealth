@@ -27,7 +27,6 @@ export default function MainMenu() {
         {renderButton("Adicionar Lembrete", "Adicionar Lembrete")}
         {renderButton("Adicionar Medicamento", "Adicionar Medicamento")}
         {renderButton("Monitorar Pressão Arterial", "Monitorar Pressão")}
-        {renderButton("Registrar Glicemia", "Registrar Glicemia")}
       </View>
     </SafeAreaView>
   );
