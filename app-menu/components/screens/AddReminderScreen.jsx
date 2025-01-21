@@ -18,11 +18,11 @@ export default function AddReminderScreen() {
 
   // -- TIPOS DE ATIVIDADES FIXAS
   const activitiesList = [
-    'medir insulina',
-    'medir pressão arterial',
-    'alimentação',
-    'beber água',
-    'dormir',
+    'Medir insulina',
+    'Medir pressão arterial',
+    'Alimentação',
+    'Beber água',
+    'Dormir',
   ];
 
   // -- ESTADOS PARA CONTROLE DO TIPO DE LEMBRETE E ESCOLHAS
