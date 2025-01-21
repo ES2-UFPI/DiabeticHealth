@@ -3,8 +3,8 @@ from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Glicemia
-from .serializers import GlicemiaSerializer
+from .models import Glicemia, Pressao
+from .serializers import GlicemiaSerializer, PressaoSerializer
 from datetime import datetime
 
 
@@ -26,3 +26,23 @@ class GlicemiaView(APIView):
         glicemia.save()
         
         return Response({"message": "Data saved successfully."}, status=status.HTTP_201_CREATED)
+    
+class PressaoView(APIView):
+    def post(self, request):
+        momento = request.data.get('momento')
+        systolic = request.data.get('systolic')
+        diastolic = request.data.get('diastolic')
+        pulso = request.data.get('pulso')
+        
+        if not momento or not systolic or not diastolic or not pulso:
+            return Response({"error": "Date and value are required."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        pressao = Pressao(systolic=systolic, diastolic=diastolic)
+        pressao.save()
+        
+        return Response({"message": "Data saved successfully."}, status=status.HTTP_201_CREATED)
+    
+class PressaoViewSet(ModelViewSet):
+    queryset = Pressao.objects.all()
+    serializer_class = PressaoSerializer
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
