@@ -6,20 +6,21 @@ class HealthDataTests(TestCase):
     def setUp(self):
         self.client = APIClient()
 
-    def test_create_Insulina(self):
+    def test_create_insulina(self):
         data = {
             "date": "2023-10-01T12:00:00",
             "value": 100
         }
         quant = Insulina.objects.count()
-        response = self.client.post('/dados/Insulina/', data, format='json')
+        response = self.client.post('/dados/insulina/', data, format='json')
         self.assertEqual(response.status_code, 201)
         self.assertEqual(Insulina.objects.count(), quant + 1)
-        Insulina = Insulina.objects.order_by('-id').first()
-        self.assertEqual(Insulina.value, 100)
+        insulina = Insulina.objects.order_by('-id').first()
+        self.assertEqual(insulina.value, 100)
 
     def test_create_pressao(self):
         data = {
+            "date": "2023-10-01T08:00:00",
             "momento": "morning",
             "systolic": 120,
             "diastolic": 80,
@@ -32,6 +33,7 @@ class HealthDataTests(TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(Pressao.objects.count(), quant + 1)
         pressao = Pressao.objects.order_by('-id').first()
+        self.assertEqual(pressao.momento, "morning")
         self.assertEqual(pressao.systolic, 120)
         self.assertEqual(pressao.diastolic, 80)
         self.assertEqual(pressao.pulso, 70)
