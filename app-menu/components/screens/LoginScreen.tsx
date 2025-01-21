@@ -3,11 +3,11 @@ import {
   View,
   Text,
   TextInput,
-  StyleSheet,
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
 } from 'react-native';
+import { globalStyles } from '../../constants/styles';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -28,17 +28,17 @@ const LoginScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}>DiabeticHealth</Text>
+    <SafeAreaView style={globalStyles.container}>
+      <ScrollView style={globalStyles.scrollView} showsVerticalScrollIndicator={false}>
+        <Text style={globalStyles.title}>DiabeticHealth</Text>
         
         {/* Espaço reservado para o logo */}
-        <View style={styles.logoContainer} />
+        <View style={globalStyles.logoContainer} />
 
-        <View style={styles.form}>
-          <Text style={styles.label}>E-mail:</Text>
+        <View style={globalStyles.form}>
+          <Text style={globalStyles.label}>E-mail:</Text>
           <TextInput
-            style={styles.input}
+            style={globalStyles.input}
             placeholder="Digite seu e-mail"
             keyboardType="email-address"
             autoCapitalize="none"
@@ -46,40 +46,40 @@ const LoginScreen = () => {
             onChangeText={setEmail}
           />
 
-          <Text style={styles.label}>Senha:</Text>
+          <Text style={globalStyles.label}>Senha:</Text>
           <TextInput
-            style={styles.input}
+            style={globalStyles.input}
             placeholder="Digite sua senha"
             secureTextEntry
             value={senha}
             onChangeText={setSenha}
           />
 
-          <TouchableOpacity style={styles.forgotPassword}>
-            <Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
+          <TouchableOpacity style={globalStyles.forgotPassword}>
+            <Text style={globalStyles.forgotPasswordText}>Esqueceu sua senha?</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button} onPress={handleLoginEmail}>
-            <Text style={styles.buttonText}>Entrar com E-mail</Text>
+          <TouchableOpacity style={globalStyles.button} onPress={handleLoginEmail}>
+            <Text style={globalStyles.buttonText}>Entrar com E-mail</Text>
           </TouchableOpacity>
 
-          <View style={styles.divider}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>ou</Text>
-            <View style={styles.dividerLine} />
+          <View style={globalStyles.divider}>
+            <View style={globalStyles.dividerLine} />
+            <Text style={globalStyles.dividerText}>ou</Text>
+            <View style={globalStyles.dividerLine} />
           </View>
 
           <TouchableOpacity 
-            style={[styles.button, styles.facebookButton]} 
+            style={[globalStyles.button, globalStyles.facebookButton]} 
             onPress={handleLoginFacebook}
           >
-            <Text style={styles.buttonText}>Entrar com Facebook</Text>
+            <Text style={globalStyles.buttonText}>Entrar com Facebook</Text>
           </TouchableOpacity>
 
-          <View style={styles.signupContainer}>
-            <Text style={styles.signupText}>Ainda não tem uma conta? </Text>
+          <View style={globalStyles.signupContainer}>
+            <Text style={globalStyles.signupText}>Ainda não tem uma conta? </Text>
             <TouchableOpacity>
-              <Text style={styles.signupLink}>Cadastre-se</Text>
+              <Text style={globalStyles.signupLink}>Cadastre-se</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -87,95 +87,5 @@ const LoginScreen = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-  },
-  scrollView: {
-    flex: 1,
-    padding: 20,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginTop: 20,
-    marginBottom: 30,
-    color: '#000',
-  },
-  logoContainer: {
-    height: 150,
-    marginBottom: 40,
-  },
-  form: {
-    paddingBottom: 20,
-  },
-  label: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 15,
-    padding: 15,
-    marginBottom: 25,
-    backgroundColor: '#f9f9f9',
-  },
-  forgotPassword: {
-    alignSelf: 'flex-end',
-    marginBottom: 20,
-  },
-  forgotPasswordText: {
-    color: '#666',
-    fontSize: 14,
-  },
-  button: {
-    backgroundColor: '#000',
-    paddingVertical: 15,
-    borderRadius: 15,
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  facebookButton: {
-    backgroundColor: '#1877F2',
-  },
-  divider: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 20,
-  },
-  dividerLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: '#ccc',
-  },
-  dividerText: {
-    color: '#666',
-    paddingHorizontal: 10,
-  },
-  signupContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 20,
-  },
-  signupText: {
-    color: '#666',
-    fontSize: 14,
-  },
-  signupLink: {
-    color: '#000',
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-});
 
 export default LoginScreen;
