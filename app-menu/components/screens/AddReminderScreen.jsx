@@ -5,12 +5,12 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
   Alert
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Notifications from 'expo-notifications';
 import { Picker } from '@react-native-picker/picker';
+import { globalStyles } from '../../constants/styles';
 
 export default function AddReminderScreen() {
   // -- LISTA DE MEDICAMENTOS (carregada do AsyncStorage)
@@ -204,19 +204,19 @@ export default function AddReminderScreen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Cadastro de Lembretes</Text>
-      <Text style={styles.subtitle}>
+    <ScrollView contentContainerStyle={globalStyles.container}>
+      <Text style={globalStyles.title}>Cadastro de Lembretes</Text>
+      <Text style={globalStyles.subtitle}>
         Selecione o tipo de lembrete e preencha as informações abaixo
       </Text>
 
       {/* Tipo de Lembrete */}
-      <Text style={styles.label}>Selecione o Tipo de Lembrete</Text>
-      <View style={styles.pickerContainer}>
+      <Text style={globalStyles.label}>Selecione o Tipo de Lembrete</Text>
+      <View style={globalStyles.pickerContainer}>
         <Picker
           selectedValue={typeOfReminder}
           onValueChange={(value) => setTypeOfReminder(value)}
-          style={styles.picker}
+          style={globalStyles.picker}
         >
           <Picker.Item label="Selecione..." value="" />
           <Picker.Item label="Medicamento" value="medicamento" />
@@ -227,17 +227,17 @@ export default function AddReminderScreen() {
       {/* Se for Medicamento, exibir a lista de medicamentos */}
       {typeOfReminder === 'medicamento' && (
         <>
-          <Text style={styles.label}>Selecione o Medicamento</Text>
+          <Text style={globalStyles.label}>Selecione o Medicamento</Text>
           {medicationsList.length === 0 ? (
-            <Text style={styles.emptyList}>
+            <Text style={globalStyles.emptyList}>
               Nenhum medicamento cadastrado. Vá para "Adicionar Medicamento" primeiro.
             </Text>
           ) : (
-            <View style={styles.pickerContainer}>
+            <View style={globalStyles.pickerContainer}>
               <Picker
                 selectedValue={selectedMedication}
                 onValueChange={(itemValue) => setSelectedMedication(itemValue)}
-                style={styles.picker}
+                style={globalStyles.picker}
               >
                 <Picker.Item label="Selecione..." value={null} />
                 {medicationsList.map((med, index) => (
@@ -250,15 +250,15 @@ export default function AddReminderScreen() {
           {/* Mostrar informações do medicamento selecionado, se quiser */}
           {selectedMedication && (
             <>
-              <Text style={styles.selectedText}>
+              <Text style={globalStyles.selectedText}>
                 Medicamento: {selectedMedication.nome}
               </Text>
               {selectedMedication.descricao ? (
-                <Text style={styles.selectedText}>
+                <Text style={globalStyles.selectedText}>
                   Descrição: {selectedMedication.descricao}
                 </Text>
               ) : null}
-              <Text style={styles.selectedText}>
+              <Text style={globalStyles.selectedText}>
                 Intervalo (horas): {selectedMedication.interval}
               </Text>
             </>
@@ -269,12 +269,12 @@ export default function AddReminderScreen() {
       {/* Se for Atividade, exibir a lista de atividades + campo de intervalo */}
       {typeOfReminder === 'atividade' && (
         <>
-          <Text style={styles.label}>Selecione a Atividade</Text>
-          <View style={styles.pickerContainer}>
+          <Text style={globalStyles.label}>Selecione a Atividade</Text>
+          <View style={globalStyles.pickerContainer}>
             <Picker
               selectedValue={selectedActivity}
               onValueChange={(itemValue) => setSelectedActivity(itemValue)}
-              style={styles.picker}
+              style={globalStyles.picker}
             >
               <Picker.Item label="Selecione..." value={null} />
               {activitiesList.map((act, index) => (
@@ -284,9 +284,9 @@ export default function AddReminderScreen() {
           </View>
 
           {/* Intervalo para atividades */}
-          <Text style={styles.label}>Intervalo (horas)</Text>
+          <Text style={globalStyles.label}>Intervalo (horas)</Text>
           <TextInput
-            style={styles.input}
+            style={globalStyles.input}
             placeholder="Digite o intervalo em horas"
             value={activityInterval}
             onChangeText={setActivityInterval}
@@ -296,56 +296,56 @@ export default function AddReminderScreen() {
       )}
 
       {/* CAMPOS GERAIS (DATA/HORA) */}
-      <Text style={styles.label}>Data Inicial</Text>
+      <Text style={globalStyles.label}>Data Inicial</Text>
       <TextInput
-        style={styles.input}
+        style={globalStyles.input}
         placeholder="Digite a data (ex: 2025-01-10)"
         value={date}
         onChangeText={setDate}
       />
 
-      <Text style={styles.label}>Hora Inicial</Text>
+      <Text style={globalStyles.label}>Hora Inicial</Text>
       <TextInput
-        style={styles.input}
+        style={globalStyles.input}
         placeholder="Digite a hora (ex: 14:30)"
         value={time}
         onChangeText={setTime}
       />
 
       {/* Botões */}
-      <TouchableOpacity style={styles.button} onPress={saveReminder}>
-        <Text style={styles.buttonText}>Salvar Lembrete</Text>
+      <TouchableOpacity style={globalStyles.button} onPress={saveReminder}>
+        <Text style={globalStyles.buttonText}>Salvar Lembrete</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.testButton} onPress={testNotification}>
-        <Text style={styles.buttonText}>Testar Notificação</Text>
+      <TouchableOpacity style={globalStyles.testButton} onPress={testNotification}>
+        <Text style={globalStyles.buttonText}>Testar Notificação</Text>
       </TouchableOpacity>
 
-      <Text style={styles.listTitle}>Lembretes Criados:</Text>
+      <Text style={globalStyles.listTitle}>Lembretes Criados:</Text>
       {remindersList.length === 0 ? (
-        <Text style={styles.emptyList}>Nenhum lembrete criado ainda.</Text>
+        <Text style={globalStyles.emptyList}>Nenhum lembrete criado ainda.</Text>
       ) : (
         remindersList.map((reminder, index) => (
-          <View key={index} style={styles.reminderItem}>
-            <Text style={styles.reminderTitle}>{reminder.title}</Text>
+          <View key={index} style={globalStyles.reminderItem}>
+            <Text style={globalStyles.reminderTitle}>{reminder.title}</Text>
             {reminder.description ? (
-              <Text style={styles.reminderDescription}>{reminder.description}</Text>
+              <Text style={globalStyles.reminderDescription}>{reminder.description}</Text>
             ) : null}
-            <Text style={styles.reminderInfo}>
+            <Text style={globalStyles.reminderInfo}>
               {reminder.date} às {reminder.time}
             </Text>
-            <Text style={styles.reminderInfo}>
+            <Text style={globalStyles.reminderInfo}>
               Intervalo: {reminder.interval} hora(s)
             </Text>
-            <Text style={styles.reminderInfo}>
+            <Text style={globalStyles.reminderInfo}>
               Tipo: {reminder.type}
             </Text>
 
             <TouchableOpacity
-              style={styles.removeButton}
+              style={globalStyles.removeButton}
               onPress={() => removeReminder(index)}
             >
-              <Text style={styles.removeButtonText}>Remover</Text>
+              <Text style={globalStyles.removeButtonText}>Remover</Text>
             </TouchableOpacity>
           </View>
         ))
@@ -353,119 +353,3 @@ export default function AddReminderScreen() {
     </ScrollView>
   );
 }
-
-// -- ESTILOS --
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    backgroundColor: '#ffffff',
-    padding: 20,
-    paddingBottom: 40,
-  },
-  pickerContainer: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 15,
-    marginBottom: 25,
-    backgroundColor: '#f9f9f9',
-    overflow: 'hidden',
-  },
-  picker: {
-    height: 50,
-    width: '100%',
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 5,
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: 'center',
-    color: '#666',
-    marginBottom: 20,
-  },
-  label: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  selectedText: {
-    fontSize: 16,
-    color: '#333',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 15,
-    padding: 10,
-    marginBottom: 25,
-    backgroundColor: '#f9f9f9',
-  },
-  button: {
-    backgroundColor: '#000',
-    paddingVertical: 15,
-    borderRadius: 15,
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  testButton: {
-    backgroundColor: '#007bff',
-    paddingVertical: 15,
-    borderRadius: 15,
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  removeButton: {
-    backgroundColor: 'red',
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    borderRadius: 15,
-    alignItems: 'center',
-    marginTop: 10,
-    alignSelf: 'flex-start',
-  },
-  removeButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  listTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginTop: 15,
-    marginBottom: 10,
-  },
-  emptyList: {
-    fontSize: 16,
-    color: '#999',
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  reminderItem: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 10,
-    backgroundColor: '#f3f3f3',
-  },
-  reminderTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  reminderDescription: {
-    fontStyle: 'italic',
-    marginBottom: 5,
-  },
-  reminderInfo: {
-    fontSize: 14,
-    marginBottom: 3,
-  },
-});
