@@ -83,7 +83,8 @@ WSGI_APPLICATION = 'diabetic_health.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': None,  # Desative o banco de dados padrão do Django
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',  # Banco de dados em memória para testes
     }
 }
 
