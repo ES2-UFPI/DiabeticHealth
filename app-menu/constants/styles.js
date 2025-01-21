@@ -104,4 +104,64 @@ export const globalStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  // New styles for AddReminderScreen
+  selectedText: {
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 10,
+  },
+  testButton: {
+    marginTop: 20,
+    backgroundColor: '#FFA500',
+    padding: 10,
+    borderRadius: 8,
+  },
+  listTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  emptyList: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginTop: 20,
+  },
+  reminderItem: {
+    backgroundColor: '#fff',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  reminderTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  reminderDescription: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 5,
+  },
+  reminderInfo: {
+    fontSize: 14,
+    color: '#999',
+  },
+  removeButton: {
+    marginTop: 10,
+    backgroundColor: '#FF6347',
+    padding: 10,
+    borderRadius: 8,
+  },
+  removeButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });
