@@ -1,4 +1,4 @@
-from mongoengine import Document, EmbeddedDocument, fields, DateTimeField, IntField
+from mongoengine import Document, EmbeddedDocument, fields, DateTimeField, IntField, StringField
 
 
 class Glicemia(Document):
@@ -14,9 +14,10 @@ class BloodPressure(EmbeddedDocument):
     diastolic = IntField(required=True)
 
 class Pressao(Document):
-    date = DateTimeField(required=True)
+    momento = StringField(max_length=200)
+    pulso = IntField()  
     value = fields.EmbeddedDocumentField(BloodPressure, required=True)
     meta = {
-        'collection': 'pressao'  # Ensure the collection name is set
+        'collection': 'pressao' 
     }
 
