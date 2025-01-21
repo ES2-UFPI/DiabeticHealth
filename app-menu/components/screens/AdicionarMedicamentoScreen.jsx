@@ -1,79 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import {
-  ScrollView,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Alert
-} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react';
+import { ScrollView, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { globalStyles } from '../../constants/styles';
+import { useMedicamentos } from '../../hooks/useMedicamentos';
 
 const AdicionarMedicamentoScreen = () => {
-  const [nome, setNome] = useState('');
-  const [descricao, setDescricao] = useState('');
-  const [intervalo, setIntervalo] = useState('');
-  const [listaMedicamentos, setListaMedicamentos] = useState([]);
-
-  useEffect(() => {
-    carregarMedicamentos();
-  }, []);
-
-  const carregarMedicamentos = async () => {
-    try {
-      const medicamentosArmazenados = await AsyncStorage.getItem('listaMedicamentos');
-      if (medicamentosArmazenados) {
-        setListaMedicamentos(JSON.parse(medicamentosArmazenados));
-      } else {
-        setListaMedicamentos([]);
-      }
-    } catch (error) {
-      console.log('Erro ao carregar medicamentos:', error);
-    }
-  };
-
-  const salvarMedicamento = async () => {
-    if (!nome || !intervalo) {
-      Alert.alert('Erro', 'Por favor, preencha o nome e o intervalo do medicamento.');
-      return;
-    }
-
-    const novoMedicamento = {
-      nome,
-      descricao,
-      interval: intervalo,
-    };
-
-    try {
-      const medicamentosArmazenados = await AsyncStorage.getItem('listaMedicamentos');
-      const listaAtual = medicamentosArmazenados ? JSON.parse(medicamentosArmazenados) : [];
-      listaAtual.push(novoMedicamento);
-      await AsyncStorage.setItem('listaMedicamentos', JSON.stringify(listaAtual));
-      setListaMedicamentos(listaAtual);
-      Alert.alert('Sucesso', 'Medicamento salvo com sucesso!');
-      setNome('');
-      setDescricao('');
-      setIntervalo('');
-    } catch (error) {
-      Alert.alert('Erro', 'Não foi possível salvar o medicamento.');
-      console.log(error);
-    }
-  };
-
-  const removeMedicamento = async (index) => {
-    try {
-      const medicamentosArmazenados = await AsyncStorage.getItem('listaMedicamentos');
-      let listaAtual = medicamentosArmazenados ? JSON.parse(medicamentosArmazenados) : [];
-      listaAtual.splice(index, 1);
-      await AsyncStorage.setItem('listaMedicamentos', JSON.stringify(listaAtual));
-      setListaMedicamentos(listaAtual);
-      Alert.alert('Sucesso', 'Medicamento removido com sucesso!');
-    } catch (error) {
-      Alert.alert('Erro', 'Não foi possível remover o medicamento.');
-      console.log(error);
-    }
-  };
+  const {
+    nome,
+    setNome,
+    descricao,
+    setDescricao,
+    intervalo,
+    setIntervalo,
+    listaMedicamentos,
+    salvarMedicamento,
+    removeMedicamento,
+  } = useMedicamentos();
 
   return (
     <ScrollView contentContainerStyle={globalStyles.container}>
@@ -137,6 +78,6 @@ const AdicionarMedicamentoScreen = () => {
       )}
     </ScrollView>
   );
-}
+};
 
 export default AdicionarMedicamentoScreen;
