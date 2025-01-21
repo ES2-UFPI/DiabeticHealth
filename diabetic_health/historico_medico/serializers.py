@@ -1,10 +1,6 @@
 from rest_framework_mongoengine.serializers import DocumentSerializer
-from .models import File, Glicemia
+from .models import  Glicemia
 
-class FileSerializer(DocumentSerializer):
-    class Meta:
-        model = File
-        fields = '__all__'
 
 class GlicemiaSerializer(DocumentSerializer):
     class Meta:

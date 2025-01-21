@@ -7,5 +7,4 @@ router.register(r'glicemia', GlicemiaViewSet, basename='glicemia')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('glicemia_client/', GlicemiaView.as_view(), name='glicemia'),
 ]

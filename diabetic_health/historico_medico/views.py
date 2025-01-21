@@ -3,14 +3,11 @@ from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import File, Glicemia
-from .serializers import FileSerializer, GlicemiaSerializer
+from .models import Glicemia
+from .serializers import GlicemiaSerializer
 from datetime import datetime
 
-class FileViewSet(ModelViewSet):
-    queryset = File.objects.all()
-    serializer_class = FileSerializer
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+
 
 class GlicemiaViewSet(ModelViewSet):
     queryset = Glicemia.objects.all()
